@@ -9,8 +9,7 @@ builder.Services.AddCors(options =>
         {
             //replace localhost with yours
             //also add your deployed website
-            policy.WithOrigins("http://localhost:4200",
-                                "https://MyChatRoom.com").AllowAnyMethod().AllowAnyHeader();
+            policy.WithOrigins("http://localhost:7143").AllowAnyMethod().AllowAnyHeader();
         });
 });
 

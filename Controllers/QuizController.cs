@@ -42,11 +42,16 @@ namespace BootCampStudyBuddy_BackEnd.Controllers
 
         [HttpDelete]
 
-        public IActionResult Delete(int id) 
+        public IActionResult DeleteByQuizId(int id) 
         {
+
+            List<Favorite> allF = dbContext.Favorites.Where(f => f.QuizId == id).ToList();
+            dbContext.Favorites.RemoveRange(allF);
+
             Quiz q = dbContext.Quizzes.Find(id);
             if( q == null) { return NotFound(); }
             dbContext.Quizzes.Remove(q);
+
             dbContext.SaveChanges();
             return NoContent();
 
