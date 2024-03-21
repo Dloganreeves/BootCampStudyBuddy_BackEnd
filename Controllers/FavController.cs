@@ -41,12 +41,15 @@ namespace BootCampStudyBuddy_BackEnd.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddFavorite([FromBody] Favorite newFavorite)
+        public IActionResult AddFavorite([FromBody] FavDTO dtoFavorite)
         {
-            newFavorite.Id = 0;
+            Favorite newFavorite = new Favorite()
+            {
+                UserId = dtoFavorite.userID,
+                QuizId = dtoFavorite.quizID
+            };
             dbContext.Favorites.Add(newFavorite);
             dbContext.SaveChanges();
-            //return Created($"/Favorite/{newFavorite.Id}", newFavorite);
             return CreatedAtAction(nameof(GetById), new { id = newFavorite.Id }, newFavorite);
         }
 
