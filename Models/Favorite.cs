@@ -9,9 +9,7 @@ public partial class Favorite
 
     public int QuizId { get; set; }
 
-    public int UserId { get; set; }
+    public string? UserId { get; set; }
 
     public virtual Quiz Quiz { get; set; } = null!;
-
-    public virtual User User { get; set; } = null!;
 }
