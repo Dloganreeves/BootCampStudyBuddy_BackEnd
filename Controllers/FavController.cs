@@ -1,6 +1,7 @@
 ﻿using BootCampStudyBuddy_BackEnd.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace BootCampStudyBuddy_BackEnd.Controllers
 {
@@ -17,7 +18,9 @@ namespace BootCampStudyBuddy_BackEnd.Controllers
             return Ok(result);
         }
 
-        [HttpDelete]
+        
+
+        [HttpDelete("{id}")]
         public IActionResult Delete(int id) // delete by favorite id
         {
             Favorite f = dbContext.Favorites.Find(id);
@@ -30,9 +33,10 @@ namespace BootCampStudyBuddy_BackEnd.Controllers
 
         [HttpGet("{id}")]
 
-        public IActionResult GetById(int id)
+        public IActionResult GetById(string id)
         {
-            Favorite result = dbContext.Favorites.Find(id);
+            
+           List <Favorite>  result = dbContext.Favorites.Where(u => u.UserId == id).Include(u => u.Quiz).ToList();
             if (result == null)
             {
                 return NotFound();
